@@ -2,7 +2,7 @@
 
 Dock estilo macOS, com **ampliação em onda** ao passar o mouse, integrado ao visual do Caelestia, rodando no Hyprland.
 
-Criado em 2026-10-05. Status: **planejamento**.
+Criado em 2026-10-05. Status: **etapa 1 concluída** (2026-10-05); próxima: etapa 2.
 
 ## Por que
 
@@ -59,8 +59,8 @@ O código fica em `~/code` (versionado com git); o Quickshell enxerga por symlin
 
 ## Etapas
 
-1. **Preparar:** `git init`, clonar o repositório original (versão 1.8.1, com o `LICENSE`) para `dock/`, sem alterar, e fazer o primeiro commit (referência original). Depois, remover as cópias soltas em `~/.config/quickshell/`.
-2. **Camada de compatibilidade:** criar `compat/` com `Color`, `Style` e componentes de `Ui`, lendo o `scheme.json` com `FileView`.
+1. ✅ **Preparar:** `git init`, clonar o repositório original (versão 1.8.1, com o `LICENSE`) para `dock/`, sem alterar, e fazer o primeiro commit (referência original). Depois, remover as cópias soltas em `~/.config/quickshell/`.
+2. **Camada de compatibilidade:** criar `compat/` (usar como molde os stubs em `dock/tests/imports/qs/Commons/`) com `Color`, `Style` e componentes de `Ui`, lendo o `scheme.json` com `FileView`.
 3. **Primeiro boot:** `qs -c dock-caelestia` abrindo o dock na borda de baixo, com apps fixados e ícones.
 4. **Hyprland:** apps abertos e pontinhos via `Quickshell.Hyprland`, clicar para focar ou abrir.
 5. **Zoom:** validar a ampliação em onda e ajustar intensidade, raio e duração.
