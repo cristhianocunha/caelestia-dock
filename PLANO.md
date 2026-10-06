@@ -2,7 +2,7 @@
 
 Dock estilo macOS, com **ampliação em onda** ao passar o mouse, integrado ao visual do Caelestia, rodando no Hyprland.
 
-Criado em 2026-10-05. Status: **etapas 1–3 concluídas** (2026-10-06); próxima: etapa 4 (validar apps abertos/clique) e 5 (zoom).
+Criado em 2026-10-05. Status: **etapas 1–3 e 8 concluídas** (2026-10-06): o dock-caelestia já é o dock do sistema (autostart, auto-esconder, sem reservar espaço). Falta validar 4–6 e decidir os extras (7).
 
 ## Por que
 
@@ -66,7 +66,7 @@ O código fica em `~/code` (versionado com git); o Quickshell enxerga por symlin
 5. **Zoom:** validar a ampliação em onda e ajustar intensidade, raio e duração.
 6. **Auto-esconder:** aparecer ao encostar o mouse na borda de baixo, como o nwg-dock hoje.
 7. **Extras do original:** preview, menu de contexto, reordenar, badges (cada um opcional).
-8. **Trocar o dock:** no `hyprland.lua`, substituir o `nwg-dock-hyprland` pelo `qs -c dock-caelestia -d` e adicionar uma regra de blur para a layer do dock.
+8. ✅ **Trocar o dock:** no `hyprland.lua`, substituir o `nwg-dock-hyprland` pelo `qs -c dock-caelestia -d` e adicionar uma regra de blur para a layer do dock.
 
 ## Riscos
 
