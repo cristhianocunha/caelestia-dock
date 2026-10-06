@@ -19,8 +19,8 @@ Item {
   // output-local dock so one badge is not counted once per monitor.
   property var notificationCounts: ({})
   property var notificationSeen: ({})
-  readonly property string notificationSeenPath: Quickshell.env("HOME") + "/.config/omarchy/dock-notifications-seen.json"
-  readonly property string notificationScript: Quickshell.env("HOME") + "/.config/omarchy/plugins/wdg.dock/dock-notifications.py"
+  readonly property string notificationSeenPath: Quickshell.env("HOME") + "/.config/dock-caelestia/notifications-seen.json"
+  readonly property string notificationScript: Quickshell.shellDir + "/dock/dock-notifications.py"
 
   function requestLaunch(launchId, appName, existingWindows, command) {
     var key = "$" + launchId

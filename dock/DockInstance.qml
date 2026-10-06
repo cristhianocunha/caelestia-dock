@@ -440,8 +440,8 @@ Item {
   }
 
   // Muted Apps State Persistence & Audio Control
-  readonly property string mutedAppsPath: Quickshell.env("HOME") + "/.config/omarchy/dock-muted-apps.json"
-  readonly property string dockAudioScript: Quickshell.env("HOME") + "/.config/omarchy/plugins/wdg.dock/dock-audio.py"
+  readonly property string mutedAppsPath: Quickshell.env("HOME") + "/.config/dock-caelestia/muted-apps.json"
+  readonly property string dockAudioScript: Quickshell.shellDir + "/dock/dock-audio.py"
   property var mutedAppsMap: ({})
 
   FileView {
@@ -518,7 +518,7 @@ Item {
   }
 
   // Settings File Persistence
-  readonly property string configPath: Quickshell.env("HOME") + "/.config/omarchy/dock-pinned-macos.json"
+  readonly property string configPath: Quickshell.env("HOME") + "/.config/dock-caelestia/pinned.json"
 
   FileView {
     id: configFileView
@@ -1019,7 +1019,7 @@ Item {
       + 16
     color: "transparent"
 
-    WlrLayershell.namespace: "omarchy-dock"
+    WlrLayershell.namespace: "dock-caelestia"
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
     
@@ -1502,7 +1502,7 @@ Item {
               onExited: root.releaseTooltip(launcherItem)
               onClicked: function(mouse) {
                 if (mouse.button === Qt.RightButton) root.openSettings()
-                else Util.execDetached("omarchy-menu toggle apps")
+                else Util.execDetached("caelestia shell drawers toggle launcher")
               }
             }
           }
