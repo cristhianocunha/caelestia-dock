@@ -28,7 +28,7 @@ Carried over from the original but **not yet tested** in this port: right-click 
 ## Installation
 
 ```sh
-git clone <this-repo-url> ~/code/dock_caelestia
+git clone https://github.com/cristhianocunha/caelestia-dock.git ~/code/dock_caelestia
 mkdir -p ~/.config/quickshell ~/.config/dock-caelestia
 ln -sfn ~/code/dock_caelestia ~/.config/quickshell/dock-caelestia
 ```
@@ -126,10 +126,10 @@ Changes made in `dock/` compared with the original:
 - layer namespace `omarchy-dock` → `dock-caelestia`
 - apps button: `omarchy-menu` → Caelestia's launcher
 
-The repository's first commit is the unmodified original. To see everything that changed:
+The unmodified original is tagged `upstream-v1.8.1`. To see everything that changed:
 
 ```sh
-git diff $(git rev-list --max-parents=0 HEAD) -- dock/
+git diff upstream-v1.8.1 -- dock/
 ```
 
 ## Known issues
@@ -150,4 +150,4 @@ In `hyprland.lua`, remove the `qs -c dock-caelestia` autostart line and re-enabl
 
 The code in `dock/` is **macOS Magnify Dock** by Wisang Drillian Geni (wdg), distributed under the MIT license. The original notice is in [`dock/LICENSE`](dock/LICENSE), and the exact source (commit `29c5856`) is recorded in [`dock/ORIGEM.md`](dock/ORIGEM.md).
 
-The compatibility layer (`Commons/`, `Ui/`, `shell.qml`) and the adaptations are by Cristhiano Cunha.
+The compatibility layer (`Commons/`, `Ui/`, `shell.qml`) and the adaptations are by Cristhiano Cunha, also under the MIT license (see [`LICENSE`](LICENSE)).
