@@ -54,7 +54,7 @@ Item {
 
   // Always visible macOS Mode
   property bool autoHide: false
-  property bool reserveSpace: true
+  property bool reserveSpace: false
   property bool isDockHovered: false
   property bool edgeHovered: false
   property bool dockPresented: true
@@ -543,9 +543,7 @@ Item {
         if (typeof parsed.autoHide === "boolean") {
           root.autoHide = parsed.autoHide
         }
-        if (typeof parsed.reserveSpace === "boolean") {
-          root.reserveSpace = parsed.reserveSpace
-        }
+        // dock-caelestia: reserveSpace é ignorado (sempre false).
       }
     } catch (e) {}
     root.rebuildDock()
@@ -556,7 +554,7 @@ Item {
       version: 1,
       settings: root.preferences,
       autoHide: root.autoHide,
-      reserveSpace: root.reserveSpace,
+      reserveSpace: false,
       pinned: Array.isArray(root.customPinnedApps) ? root.customPinnedApps : DockModel.defaultPinnedApps
     }
     var jsonStr = JSON.stringify(payload, null, 2)
@@ -1023,11 +1021,11 @@ Item {
     WlrLayershell.layer: WlrLayer.Top
     WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
     
-    // Reserve bottom space so Hyprland windows stop cleanly above the dock
-    exclusionMode: root.reserveSpace && !root.autoHide
-      ? ExclusionMode.Normal
-      : ExclusionMode.Ignore
-    exclusiveZone: root.capsuleHeight + 10
+    // dock-caelestia: nunca reserva espaço; o dock fica por cima das janelas.
+    // Sem exclusiveZone: no Quickshell, atribuir exclusiveZone muda o
+    // exclusionMode para Normal. Como ela dependia de capsuleHeight, mudar o
+    // tamanho dos ícones voltava a reservar espaço mesmo com auto-esconder.
+    exclusionMode: ExclusionMode.Ignore
 
     // Single dynamic hit area bound directly to mask so Quickshell updates
     // the Wayland input region on geometry changes without nested region issues.

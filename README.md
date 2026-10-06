@@ -12,6 +12,7 @@ It runs as its own [Quickshell](https://quickshell.org) config alongside Caelest
 - Pinned apps + running apps, with an indicator dot
 - Click focuses the open window or launches the app
 - Auto-hide: appears when the pointer touches the bottom edge
+- Floats over windows and never reserves screen space
 - Colours from Caelestia's current scheme, updated live
 - One dock per monitor
 - The apps button opens Caelestia's launcher
@@ -69,7 +70,6 @@ Settings live in `~/.config/dock-caelestia/pinned.json`. The dock reloads the fi
 {
   "version": 1,
   "autoHide": true,
-  "reserveSpace": false,
   "pinned": ["google-chrome", "brave-browser", "kitty", "io.dbeaver.DBeaver"],
   "settings": {
     "iconSize": 34,
@@ -89,7 +89,7 @@ Settings live in `~/.config/dock-caelestia/pinned.json`. The dock reloads the fi
 |---|---|---|
 | `pinned` | Pinned apps, by `.desktop` file name without the extension | list of IDs |
 | `autoHide` | Hides the dock until the pointer touches the bottom edge | `true` / `false` |
-| `reserveSpace` | Reserves a strip at the bottom so windows don't go under the dock. **Ignored when `autoHide` is on.** | `true` / `false` |
+| `reserveSpace` | **Ignored.** This port never reserves screen space: the dock always floats over windows. | — |
 | `settings.iconSize` | Icon size | 24–64 px |
 | `settings.magnification` | Maximum magnification on hover | 1 (off) – 2 |
 | `settings.spacing` | Space between icons | 2–16 px |
@@ -125,6 +125,7 @@ Changes made in `dock/` compared with the original:
 - Python helper scripts located via `Quickshell.shellDir`
 - layer namespace `omarchy-dock` → `dock-caelestia`
 - apps button: `omarchy-menu` → Caelestia's launcher
+- screen-space reservation removed (`exclusiveZone` dropped, menu item hidden): in Quickshell, setting `exclusiveZone` switches the layer to `ExclusionMode.Normal`, so resizing icons used to reserve space even with auto-hide on
 
 The unmodified original is tagged `upstream-v1.8.1`. To see everything that changed:
 

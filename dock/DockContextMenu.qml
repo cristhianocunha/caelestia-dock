@@ -332,8 +332,9 @@ Rectangle {
       }
     }
 
-    // Reserve desktop space Toggle
+    // Reserve desktop space Toggle (oculto no dock-caelestia: nunca reserva espaço)
     Rectangle {
+      visible: false
       width: parent.width
       height: 26
       radius: 6
