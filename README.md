@@ -1,39 +1,39 @@
 # dock-caelestia
 
-Dock estilo macOS para o [Caelestia](https://github.com/caelestia-dots/shell) no Hyprland, com **ampliação em onda** ao passar o mouse.
+A macOS-style dock for the [Caelestia](https://github.com/caelestia-dots/shell) shell on Hyprland, with a **magnification wave** on hover.
 
-Ele roda como uma config própria do [Quickshell](https://quickshell.org), ao lado do Caelestia, e usa as **mesmas cores e fontes** dele. Quando o tema ou o wallpaper muda, o dock muda junto.
+It runs as its own [Quickshell](https://quickshell.org) config alongside Caelestia and uses **the same colours and fonts**. When the theme or wallpaper changes, the dock follows.
 
-> Baseado no **[macOS Magnify Dock](https://github.com/wisangdg/omarchy-magnify-dock)** (`wdg.dock` v1.8.1), de **Wisang Drillian Geni (wdg)**, licença MIT. O original é um plugin do Omarchy Shell; este projeto adapta o dock para rodar sem o Omarchy. Veja [Créditos e licença](#créditos-e-licença).
+> Based on **[macOS Magnify Dock](https://github.com/wisangdg/omarchy-magnify-dock)** (`wdg.dock` v1.8.1) by **Wisang Drillian Geni (wdg)**, MIT licensed. The original is an Omarchy Shell plugin; this project adapts it to run without Omarchy. See [Credits and license](#credits-and-license).
 
-## Recursos
+## Features
 
-- Ampliação em onda: o ícone sob o mouse cresce e os vizinhos acompanham
-- Apps fixados + apps abertos, com pontinho indicador
-- Clique foca a janela aberta ou abre o app
-- Auto-esconder: aparece ao encostar o mouse na borda de baixo
-- Cores do esquema atual do Caelestia, atualizadas ao vivo
-- Um dock por monitor
-- Botão de apps abre o launcher do Caelestia
+- Magnification wave: the hovered icon grows and its neighbours follow
+- Pinned apps + running apps, with an indicator dot
+- Click focuses the open window or launches the app
+- Auto-hide: appears when the pointer touches the bottom edge
+- Colours from Caelestia's current scheme, updated live
+- One dock per monitor
+- The apps button opens Caelestia's launcher
 
-Vieram do original, mas **ainda não foram testados** neste port: menu do botão direito, reordenar arrastando, silenciar o som por app, contador de notificações e painel de configurações. A prévia das janelas tem um problema conhecido (veja [Problemas conhecidos](#problemas-conhecidos)).
+Carried over from the original but **not yet tested** in this port: right-click menu, drag-to-reorder, per-app mute, notification badges and the settings panel. Window previews have a known issue (see [Known issues](#known-issues)).
 
-## Requisitos
+## Requirements
 
-- Hyprland, com a sessão iniciada pelo **UWSM**; o dock abre apps com `uwsm-app`
-- `quickshell` (testado com `quickshell-git` 0.3.1)
-- `caelestia-shell` (testado com `caelestia-shell-git` 2.5.0); o dock usa o plugin `Caelestia.Config` e o `~/.local/state/caelestia/scheme.json`
-- Opcionais, só para os extras: `python3`, `pactl` (silenciar som), `dbus-monitor` (contador de notificações)
+- Hyprland, with the session started by **UWSM**; the dock launches apps through `uwsm-app`
+- `quickshell` (tested with `quickshell-git` 0.3.1)
+- `caelestia-shell` (tested with `caelestia-shell-git` 2.5.0); the dock uses the `Caelestia.Config` plugin and `~/.local/state/caelestia/scheme.json`
+- Optional, only for the extras: `python3`, `pactl` (per-app mute), `dbus-monitor` (notification badges)
 
-## Instalação
+## Installation
 
 ```sh
-git clone <url-deste-repo> ~/code/dock_caelestia
+git clone <this-repo-url> ~/code/dock_caelestia
 mkdir -p ~/.config/quickshell ~/.config/dock-caelestia
 ln -sfn ~/code/dock_caelestia ~/.config/quickshell/dock-caelestia
 ```
 
-Testar sem instalar no autostart:
+Try it without adding it to autostart:
 
 ```sh
 qs -c dock-caelestia -n
@@ -41,13 +41,13 @@ qs -c dock-caelestia -n
 
 ### Hyprland (`hyprland.lua`)
 
-Iniciar junto com a sessão, dentro do `hl.on("hyprland.start", ...)`:
+Start it with the session, inside `hl.on("hyprland.start", ...)`:
 
 ```lua
 hl.exec_cmd("qs -c dock-caelestia -n -d")
 ```
 
-Desfoque de vidro atrás do dock:
+Frosted-glass blur behind the dock:
 
 ```lua
 hl.layer_rule({
@@ -59,11 +59,11 @@ hl.layer_rule({
 })
 ```
 
-Se você usava outro dock (por exemplo `nwg-dock-hyprland`), comente a linha dele no autostart para não ter dois docks na borda de baixo.
+If you used another dock before (for example `nwg-dock-hyprland`), comment out its autostart line so you don't end up with two docks on the bottom edge.
 
-## Configuração
+## Configuration
 
-Fica em `~/.config/dock-caelestia/pinned.json`. O dock relê o arquivo sozinho quando ele muda, e também o regrava quando você altera algo pelo próprio dock (fixar app, painel de configurações).
+Settings live in `~/.config/dock-caelestia/pinned.json`. The dock reloads the file when it changes, and rewrites it when you change something from the dock itself (pinning an app, the settings panel).
 
 ```json
 {
@@ -85,69 +85,69 @@ Fica em `~/.config/dock-caelestia/pinned.json`. O dock relê o arquivo sozinho q
 }
 ```
 
-| Chave | O que faz | Valores |
+| Key | What it does | Values |
 |---|---|---|
-| `pinned` | Apps fixados, pelo nome do arquivo `.desktop` sem a extensão | lista de IDs |
-| `autoHide` | Esconde o dock até o mouse encostar na borda de baixo | `true` / `false` |
-| `reserveSpace` | Reserva uma faixa embaixo para as janelas não ficarem por baixo do dock. **Ignorado quando `autoHide` está ligado.** | `true` / `false` |
-| `settings.iconSize` | Tamanho dos ícones | 24–64 px |
-| `settings.magnification` | Ampliação máxima ao passar o mouse | 1 (desligada) – 2 |
-| `settings.spacing` | Espaço entre os ícones | 2–16 px |
-| `settings.opacity` | Opacidade do fundo | 0.2–1 |
-| `settings.revealDelay` | Atraso para aparecer | 0–1000 ms |
-| `settings.hideDelay` | Atraso para esconder | 100–2000 ms |
-| `settings.windowScope` | Quais janelas contam como abertas | `all`, `monitor`, `workspace` |
-| `settings.showWindowPreviews` | Prévia das janelas ao passar o mouse | `true` / `false` |
-| `settings.showNotificationBadges` | Contador de notificações nos ícones | `true` / `false` |
+| `pinned` | Pinned apps, by `.desktop` file name without the extension | list of IDs |
+| `autoHide` | Hides the dock until the pointer touches the bottom edge | `true` / `false` |
+| `reserveSpace` | Reserves a strip at the bottom so windows don't go under the dock. **Ignored when `autoHide` is on.** | `true` / `false` |
+| `settings.iconSize` | Icon size | 24–64 px |
+| `settings.magnification` | Maximum magnification on hover | 1 (off) – 2 |
+| `settings.spacing` | Space between icons | 2–16 px |
+| `settings.opacity` | Background opacity | 0.2–1 |
+| `settings.revealDelay` | Delay before showing | 0–1000 ms |
+| `settings.hideDelay` | Delay before hiding | 100–2000 ms |
+| `settings.windowScope` | Which windows count as running | `all`, `monitor`, `workspace` |
+| `settings.showWindowPreviews` | Window previews on hover | `true` / `false` |
+| `settings.showNotificationBadges` | Notification counters on icons | `true` / `false` |
 
-Para descobrir o ID de um app: `ls /usr/share/applications ~/.local/share/applications ~/.local/share/flatpak/exports/share/applications`.
+To find an app's ID: `ls /usr/share/applications ~/.local/share/applications ~/.local/share/flatpak/exports/share/applications`.
 
-## Como funciona
+## How it works
 
-O dock original importa módulos do Omarchy Shell (`qs.Commons`, `qs.Ui`). Este projeto fornece substitutos com os mesmos nomes, para o código original rodar quase sem mudanças:
+The original dock imports Omarchy Shell modules (`qs.Commons`, `qs.Ui`). This project provides stand-ins with the same names, so the original code runs almost unchanged:
 
 ```
 dock_caelestia/
-├── shell.qml        # raiz da config Quickshell: carrega o dock
-├── Commons/         # substitui qs.Commons do Omarchy
-│   ├── Color.qml    #   cores lidas do scheme.json do Caelestia
-│   ├── Style.qml    #   fontes dos Tokens do Caelestia.Config
+├── shell.qml        # Quickshell config root: loads the dock
+├── Commons/         # replaces Omarchy's qs.Commons
+│   ├── Color.qml    #   colours read from Caelestia's scheme.json
+│   ├── Style.qml    #   fonts from Caelestia.Config Tokens
 │   └── Util.qml     #   alpha, shellQuote, execDetached, fileUrl
-├── Ui/              # o dock só importa qs.Ui; um placeholder basta
-└── dock/            # código do macOS Magnify Dock (com LICENSE e ORIGEM.md)
+├── Ui/              # the dock only imports qs.Ui; a placeholder is enough
+└── dock/            # macOS Magnify Dock code (with LICENSE and ORIGEM.md)
 ```
 
-Os nomes `Commons/` e `Ui/` precisam ser exatamente esses: no Quickshell, `import qs.Commons` aponta para a pasta `Commons/` na raiz da config.
+The `Commons/` and `Ui/` names must stay exactly like this: in Quickshell, `import qs.Commons` resolves to the `Commons/` folder at the config root.
 
-Mudanças feitas em `dock/` em relação ao original:
+Changes made in `dock/` compared with the original:
 
-- caminhos `~/.config/omarchy/...` → `~/.config/dock-caelestia/...`
-- scripts Python localizados via `Quickshell.shellDir`
-- namespace da layer `omarchy-dock` → `dock-caelestia`
-- botão de apps: `omarchy-menu` → launcher do Caelestia
+- paths `~/.config/omarchy/...` → `~/.config/dock-caelestia/...`
+- Python helper scripts located via `Quickshell.shellDir`
+- layer namespace `omarchy-dock` → `dock-caelestia`
+- apps button: `omarchy-menu` → Caelestia's launcher
 
-O primeiro commit do repositório é o original sem alterações. Para ver tudo o que mudou:
+The repository's first commit is the unmodified original. To see everything that changed:
 
 ```sh
 git diff $(git rev-list --max-parents=0 HEAD) -- dock/
 ```
 
-## Problemas conhecidos
+## Known issues
 
-- **Prévia das janelas:** o log mostra `ScreencopyView ... Cannot capture frame, as no recording context is ready`, e a prévia provavelmente não aparece. Para desligar, use `"showWindowPreviews": false`.
-- **Quickshell em versão `-git`:** atualizações podem mudar APIs e quebrar o dock (o mesmo vale para o Caelestia). Depois de atualizar, rode `qs -c dock-caelestia -n` no terminal e veja se aparecem erros.
+- **Window previews:** the log shows `ScreencopyView ... Cannot capture frame, as no recording context is ready`, and previews most likely don't render. To turn them off, set `"showWindowPreviews": false`.
+- **Quickshell `-git`:** updates can change APIs and break the dock (the same applies to Caelestia). After updating, run `qs -c dock-caelestia -n` in a terminal and check for errors.
 
-## Desinstalar / voltar ao dock anterior
+## Uninstall / go back to your previous dock
 
 ```sh
 pkill -f 'qs -c dock-caelestia'
 rm ~/.config/quickshell/dock-caelestia
 ```
 
-No `hyprland.lua`, remova a linha `qs -c dock-caelestia` do autostart e reative o dock anterior. As configurações em `~/.config/dock-caelestia/` podem ser apagadas ou mantidas.
+In `hyprland.lua`, remove the `qs -c dock-caelestia` autostart line and re-enable your previous dock. The settings in `~/.config/dock-caelestia/` can be deleted or kept.
 
-## Créditos e licença
+## Credits and license
 
-O código em `dock/` é do **macOS Magnify Dock**, de Wisang Drillian Geni (wdg), distribuído sob a licença MIT. O aviso original está em [`dock/LICENSE`](dock/LICENSE), e a origem exata (commit `29c5856`) está em [`dock/ORIGEM.md`](dock/ORIGEM.md).
+The code in `dock/` is **macOS Magnify Dock** by Wisang Drillian Geni (wdg), distributed under the MIT license. The original notice is in [`dock/LICENSE`](dock/LICENSE), and the exact source (commit `29c5856`) is recorded in [`dock/ORIGEM.md`](dock/ORIGEM.md).
 
-A camada de compatibilidade (`Commons/`, `Ui/`, `shell.qml`) e as adaptações são de Cristhiano Cunha.
+The compatibility layer (`Commons/`, `Ui/`, `shell.qml`) and the adaptations are by Cristhiano Cunha.
