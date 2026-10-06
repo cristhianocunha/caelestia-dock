@@ -2,7 +2,7 @@
 
 Dock estilo macOS, com **ampliação em onda** ao passar o mouse, integrado ao visual do Caelestia, rodando no Hyprland.
 
-Criado em 2026-10-05. Status: **etapa 1 concluída** (2026-10-05); próxima: etapa 2.
+Criado em 2026-10-05. Status: **etapas 1–3 concluídas** (2026-10-06); próxima: etapa 4 (validar apps abertos/clique) e 5 (zoom).
 
 ## Por que
 
@@ -50,7 +50,7 @@ Começar pela 1; se fizer falta algo que só existe por dentro, migrar para a 2.
 ├── PLANO.md
 ├── README.md            # instalar, configurar, desinstalar
 ├── shell.qml            # raiz da config Quickshell
-├── compat/              # Commons/Ui falsos → cores e fontes do Caelestia
+├── Commons/ e Ui/       # substitutos do Omarchy (o nome tem que ser igual ao import qs.Commons / qs.Ui)
 ├── dock/                # arquivos portados do wdg.dock
 └── install.sh           # symlink → ~/.config/quickshell/dock-caelestia
 ```
@@ -60,8 +60,8 @@ O código fica em `~/code` (versionado com git); o Quickshell enxerga por symlin
 ## Etapas
 
 1. ✅ **Preparar:** `git init`, clonar o repositório original (versão 1.8.1, com o `LICENSE`) para `dock/`, sem alterar, e fazer o primeiro commit (referência original). Depois, remover as cópias soltas em `~/.config/quickshell/`.
-2. **Camada de compatibilidade:** criar `compat/` (usar como molde os stubs em `dock/tests/imports/qs/Commons/`) com `Color`, `Style` e componentes de `Ui`, lendo o `scheme.json` com `FileView`.
-3. **Primeiro boot:** `qs -c dock-caelestia` abrindo o dock na borda de baixo, com apps fixados e ícones.
+2. ✅ **Camada de compatibilidade:** criar `compat/` (usar como molde os stubs em `dock/tests/imports/qs/Commons/`) com `Color`, `Style` e componentes de `Ui`, lendo o `scheme.json` com `FileView`.
+3. ✅ **Primeiro boot:** `qs -c dock-caelestia` abrindo o dock na borda de baixo, com apps fixados e ícones.
 4. **Hyprland:** apps abertos e pontinhos via `Quickshell.Hyprland`, clicar para focar ou abrir.
 5. **Zoom:** validar a ampliação em onda e ajustar intensidade, raio e duração.
 6. **Auto-esconder:** aparecer ao encostar o mouse na borda de baixo, como o nwg-dock hoje.
