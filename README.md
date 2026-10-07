@@ -136,12 +136,14 @@ git diff upstream-v1.8.1 -- dock/
 ## Known issues
 
 - **Window previews:** the log shows `ScreencopyView ... Cannot capture frame, as no recording context is ready`, and previews most likely don't render. To turn them off, set `"showWindowPreviews": false`.
+- **Suspend:** after resuming from suspend the dock could stay stuck hidden. `shell.qml` now detects the resume (a jump in wall-clock time between timer ticks) and reloads the dock by itself.
 - **Quickshell `-git`:** updates can change APIs and break the dock (the same applies to Caelestia). After updating, run `qs -c dock-caelestia -n` in a terminal and check for errors.
 
 ## Uninstall / go back to your previous dock
 
 ```sh
-pkill -f 'qs -c dock-caelestia'
+pkill -f '^qs -c dock-caelestia'
+pkill -f 'dock-caelestia/dock/dock-notifications.py'
 rm ~/.config/quickshell/dock-caelestia
 ```
 
